@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#111310">
+<meta name="description" content="Say it from across the room. A bright, fullscreen LED banner with custom colors, adjustable text and gentle flashing."><title>Signal — Say it from here.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23c4f568'/%3E%3Cpath d='M36 8 18 35h14l-4 21 19-29H33z' fill='%23111310'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+ <header><a class="brand" href="./" aria-label="Signal home"><span class="brandmark">ϟ</span>signal<span class="brand-dot">.</span></a><span class="header-note">A LITTLE LIGHT. A CLEAR MESSAGE.</span><span class="local-badge"><i></i> MADE FOR THE MOMENT</span></header>
+ <main>
+  <div class="intro"><div><div class="eyebrow">YOUR WORDS, LOUD & CLEAR</div><h1>Say it from here<span>.</span></h1></div><p>Skip the walk. Keep the conversation.<br>Let your screen do the talking.</p></div>
+  <div class="workspace">
+   <section class="preview-section" aria-label="Banner preview">
+    <div class="preview-top"><span><i></i> LIVE PREVIEW</span><button id="previewPause" class="text-button" aria-pressed="false">Ⅱ Pause preview</button></div>
+    <div class="preview-screen"><div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div><canvas id="preview" aria-label="Your message preview"></canvas><span class="screen-caption">NO SCROLLING. JUST YOUR MESSAGE.</span></div>
+    <div class="preview-bottom"><span><span class="small-icon">↔</span> Fits your screen automatically</span><span id="modeLabel">FLASH · LIME</span></div>
+    <div class="quick-phrases"><span>QUICK SAY</span><button data-phrase="COME OVER?">Come over?</button><button data-phrase="ONE MINUTE">One minute</button><button data-phrase="LET’S GO!">Let’s go!</button><button data-phrase="THANK YOU!">Thank you!</button></div>
+   </section>
+   <section class="editor" aria-label="Banner settings">
+    <div class="tabs" role="tablist" aria-label="Settings"><button id="tab-message" role="tab" aria-selected="true" aria-controls="message-panel" data-tab="message">Message</button><button id="tab-style" role="tab" aria-selected="false" aria-controls="style-panel" data-tab="style" tabindex="-1">Style</button><button id="tab-effects" role="tab" aria-selected="false" aria-controls="effects-panel" data-tab="effects" tabindex="-1">Effects</button></div>
+    <div class="panel" id="message-panel" role="tabpanel" aria-labelledby="tab-message">
+     <div class="label-row"><label for="message">Your message</label><span id="count">10 / 120</span></div><div class="input-wrap"><textarea id="message" maxlength="120" placeholder="Something to say?" spellcheck="false">COME OVER?</textarea><button id="clear" aria-label="Clear message">×</button></div>
+     <p class="help">Short messages make a bigger impression.</p>
+     <div class="setting-head"><label for="size">Text size</label><output id="sizeValue">100%</output></div><input type="range" id="size" min="25" max="100" value="100"><div class="range-labels"><span>Smaller</span><span>Largest fit</span></div>
+     <div class="toggle-row"><div><label for="uppercase">ALL CAPS</label><p>A little easier to read from afar.</p></div><input id="uppercase" type="checkbox" role="switch" checked></div>
+    </div>
+    <div class="panel" id="style-panel" role="tabpanel" aria-labelledby="tab-style" hidden>
+     <div class="label-row"><label>Text color</label><span id="colorName">LIME</span></div><div class="swatches" id="swatches"></div>
+     <div class="custom-color"><label for="customColor">Make it your color</label><div><span id="hex">#C4F568</span><input type="color" id="customColor" value="#c4f568" aria-label="Custom text color"></div></div>
+     <div class="setting-head"><label>Letter style</label></div><div class="segmented" aria-label="Letter style"><button data-font="solid" aria-pressed="true">Aa <span>Solid</span></button><button data-font="dots" aria-pressed="false">⠿ <span>LED dots</span></button></div><p class="help">Solid letters are clearest at a distance.</p>
+    </div>
+    <div class="panel" id="effects-panel" role="tabpanel" aria-labelledby="tab-effects" hidden>
+     <div class="toggle-row first"><div><label for="flash">Flash message</label><p>Catch their eye. Stay in one place.</p></div><input id="flash" type="checkbox" role="switch" checked></div>
+     <div class="setting-head"><label>Flash pace</label><span id="paceValue">1.8 sec</span></div><div class="segmented pace"><button data-pace="2400" aria-pressed="false">Slow</button><button data-pace="1800" aria-pressed="true">Medium</button><button data-pace="1200" aria-pressed="false">Quick</button></div>
+     <div class="setting-head"><label for="glow">Glow</label><output id="glowValue">Soft</output></div><input id="glow" type="range" min="0" max="30" value="12"><div class="range-labels"><span>Crisp</span><span>Radiant</span></div>
+     <p class="effects-note">Flashing light can cause discomfort. Choose steady mode if you or someone nearby is sensitive.</p>
+    </div>
+    <div class="show-area"><button id="show" class="show-button"><span>ϟ</span> Show banner <span>↗</span></button><p>Go fullscreen. Get their attention.</p></div>
+   </section>
+  </div>
+  <div class="tip"><span class="tip-icon">☀</span><p><strong>A brighter way to say it.</strong> Turn up your phone brightness and hold it sideways for the biggest message.</p><span class="tip-arrow">↗</span></div>
+ </main>
+ <footer><span>LESS INTERRUPTING. MORE CONNECTING.</span><span>Made to be seen<span class="footer-spark"> ✳</span></span></footer>
+</div>
+<section id="presentation" hidden aria-label="Fullscreen banner"><canvas id="display" aria-label="Your displayed message"></canvas><div id="displayControls"><button id="exit">↙ Exit banner</button><span>Tap screen to show controls</span><button id="steady">Pause flashing</button></div></section>
+<div id="toast" role="status"></div>
+<script src="app.js"></script>
+</body></html>
